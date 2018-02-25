@@ -1,0 +1,20 @@
+{
+  "name": "web-developer-blog",
+  "version": "0.0.1",
+  "description": "A blog for anything and everything about web development.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StephenDK/WebDevBlog.git"
+  },
+  "author": "Stephen Klein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StephenDK/WebDevBlog/issues"
+  },
+  "homepage": "https://github.com/StephenDK/WebDevBlog#readme"
+}
