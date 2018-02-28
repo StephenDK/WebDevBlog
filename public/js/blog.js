@@ -1,47 +1,46 @@
 $(document).ready(function() {
-// blog container to hold all posts
-var blogContainer = $(".blog-container");
-var postCategorySelect = $("#category");
+  /* global moment */
+  // blogContainer holds all of our posts
+  var blogContainer = $(".blog-container");
+  var postCategorySelect = $("#category");
+  // Click events for the edit and delete buttons
+  $(document).on("click", "button.delete", handlePostDelete);
+  $(document).on("click", "button.edit", handlePostEdit);
+  postCategorySelect.on("change", handleCategoryChange);
+  var posts;
 
-// click events for edit and delete buttons
-$(document).on("click", "button.delete", handlePostDelete);
-$(document).on("click", "button.edit", handlePostEdit);
-postCategorySelect.on("change", handleCategoryChange);
-var posts;
-
-// this function grabs the posts from the database and updates the view
-function getPosts(category) {
+  // This function grabs posts from the database and updates the view
+  function getPosts(category) {
     var categoryString = category || "";
     if (categoryString) {
-        categoryString = "/category/" + categoryString;
+      categoryString = "/category/" + categoryString;
     }
     $.get("/api/posts" + categoryString, function(data) {
-        console.log("Posts", data);
-        posts = data;
-        if (!posts || !posts.length) {
-            displayEmpty();
-        }
-        else {
-            initializeRows();
-        }
+      console.log("Posts", data);
+      posts = data;
+      if (!posts || !posts.length) {
+        displayEmpty();
+      }
+      else {
+        initializeRows();
+      }
     });
-}
+  }
 
-// this function does an api call to delete posts
-function deletePost(id) {
+  // This function does an API call to delete posts
+  function deletePost(id) {
     $.ajax({
-        method: "DELETE",
-        url: "/api/posts/" + id
+      method: "DELETE",
+      url: "/api/posts/" + id
     })
     .then(function() {
-        getPosts(postCategorySelect.val());
-    })
-}
+      getPosts(postCategorySelect.val());
+    });
+  }
 
-// get the initial posts
-getPosts()
-
-// InitializeRows handles appending all of our constructed post HTML inside
+  // Getting the initial list of posts
+  getPosts();
+  // InitializeRows handles appending all of our constructed post HTML inside
   // blogContainer
   function initializeRows() {
     blogContainer.empty();
@@ -130,5 +129,3 @@ getPosts()
   }
 
 });
-
-})
